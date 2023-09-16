@@ -1,5 +1,7 @@
 package com.cpt.payments.controller;
 
+import com.cpt.payments.pojo.AddRequest;
+import com.cpt.payments.pojo.AddResponse;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -25,6 +27,16 @@ public class TestController {
         int res = val1+val2;
         System.out.println("Add res:"+res);
         return res;
+    }
+    @PostMapping("/processJSON")
+    @ResponseBody
+    public AddResponse processJSON(@RequestBody AddRequest request){
+        System.out.println(" Calling processJSON::request:" + request);
+        int res = request.getNum1()+ request.getNum2();
+        AddResponse response=new AddResponse();
+        response.setResValue(res);
+        System.out.println("Add response:"+response);
+        return response;
     }
     public String initPayment(String paymentMethod, int amount, String curr){
         return "Payment Processed Successfully";
